@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from scorer import Scorer
 from validator import SchemaValidator
 from report_builder import ReportBuilder
+from html_report_builder import HTMLReportBuilder
 
 
 class TexOrchestrator:
@@ -93,6 +94,20 @@ class TexOrchestrator:
             print("[✗] PDF report generation failed")
             return False
     
+    def generate_html_report(self) -> bool:
+        """Generate a self-contained HTML report (no LaTeX toolchain needed)"""
+        print("[*] Generating HTML report...")
+
+        builder = HTMLReportBuilder()
+        success = builder.generate_report(self.summary_file, self.output_dir)
+
+        if success:
+            print("[✓] HTML report generated")
+            return True
+        else:
+            print("[✗] HTML report generation failed")
+            return False
+
     def get_spi(self) -> float:
         """Get SPI value from summary"""
         try:
@@ -103,7 +118,8 @@ class TexOrchestrator:
         except:
             return 0
     
-    def run_full_pipeline(self, skip_report: bool = False) -> bool:
+    def run_full_pipeline(self, skip_report: bool = False,
+                          html_report: bool = False) -> bool:
         """Run complete audit → score → report pipeline"""
         print("=" * 60)
         print("TeX Security Compliance Auditor")
@@ -123,6 +139,10 @@ class TexOrchestrator:
         
         # Generate report (optional)
         if not skip_report and not self.generate_report():
+            return False
+
+        # Generate HTML report (optional)
+        if html_report and not self.generate_html_report():
             return False
         
         print("=" * 60)
@@ -165,9 +185,14 @@ Examples:
         help="Generate PDF report"
     )
     parser.add_argument(
+        "--html-report",
+        action="store_true",
+        help="Generate self-contained HTML report (no LaTeX required)"
+    )
+    parser.add_argument(
         "--output-dir",
         default="reports",
-        help="Output directory for PDF reports"
+        help="Output directory for reports"
     )
     parser.add_argument(
         "--spi-only",
@@ -213,9 +238,12 @@ Examples:
             sys.exit(1)
     
     # Handle score + report pipeline
-    if args.score or args.report:
+    if args.score or args.report or args.html_report:
         skip_report = not args.report
-        success = orchestrator.run_full_pipeline(skip_report=skip_report)
+        success = orchestrator.run_full_pipeline(
+            skip_report=skip_report,
+            html_report=args.html_report,
+        )
         sys.exit(0 if success else 1)
     
     # Default: print help

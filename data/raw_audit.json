@@ -1,0 +1,328 @@
+{
+  "audit_metadata": {
+    "timestamp": 1749268800,
+    "hostname": "prod-web-01.tex.internal",
+    "os_name": "Ubuntu 22.04.4 LTS",
+    "kernel_version": "5.15.0-105-generic",
+    "audit_user": "tex-auditor",
+    "tex_version": "1.0.0"
+  },
+  "modules": {
+    "ssh": {
+      "module": "ssh",
+      "status": "COMPLETED",
+      "timestamp": 1749268800,
+      "hostname": "prod-web-01.tex.internal",
+      "checks": [
+        {
+          "cis_id": "5.2.1",
+          "title": "Ensure SSH Protocol is set to 2",
+          "status": "PASS",
+          "actual_value": "^Protocol\\s+2$",
+          "expected_value": "^Protocol\\s+2$",
+          "severity": "CRITICAL",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: Protocol 2\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.4",
+          "title": "Ensure SSH MaxAuthTries is set to 4 or less",
+          "status": "FAIL",
+          "actual_value": "(parameter not set)",
+          "expected_value": "^MaxAuthTries\\s+[1-4]$",
+          "severity": "MEDIUM",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: MaxAuthTries 4\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.5",
+          "title": "Ensure SSH IgnoreRhosts is enabled",
+          "status": "FAIL",
+          "actual_value": "(parameter not set)",
+          "expected_value": "^IgnoreRhosts\\s+yes$",
+          "severity": "HIGH",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: IgnoreRhosts yes\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.6",
+          "title": "Ensure SSH HostbasedAuthentication is disabled",
+          "status": "PASS",
+          "actual_value": "^HostbasedAuthentication\\s+no$",
+          "expected_value": "^HostbasedAuthentication\\s+no$",
+          "severity": "HIGH",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: HostbasedAuthentication no\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.8",
+          "title": "Ensure SSH PermitRootLogin is disabled",
+          "status": "FAIL",
+          "actual_value": "(parameter not set)",
+          "expected_value": "^PermitRootLogin\\s+no$",
+          "severity": "CRITICAL",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: PermitRootLogin no\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.9",
+          "title": "Ensure SSH PermitEmptyPasswords is disabled",
+          "status": "PASS",
+          "actual_value": "^PermitEmptyPasswords\\s+no$",
+          "expected_value": "^PermitEmptyPasswords\\s+no$",
+          "severity": "CRITICAL",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: PermitEmptyPasswords no\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.10",
+          "title": "Ensure SSH PermitUserEnvironment is disabled",
+          "status": "PASS",
+          "actual_value": "^PermitUserEnvironment\\s+no$",
+          "expected_value": "^PermitUserEnvironment\\s+no$",
+          "severity": "MEDIUM",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: PermitUserEnvironment no\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.12",
+          "title": "Ensure SSH X11Forwarding is disabled",
+          "status": "PASS",
+          "actual_value": "^X11Forwarding\\s+no$",
+          "expected_value": "^X11Forwarding\\s+no$",
+          "severity": "MEDIUM",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: X11Forwarding no\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.13",
+          "title": "Ensure SSH MaxStartups is configured",
+          "status": "FAIL",
+          "actual_value": "(parameter not set)",
+          "expected_value": "^MaxStartups\\s+(10:30:60|[1-9]:[1-9][0-9]:[1-9][0-9])$",
+          "severity": "MEDIUM",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: MaxStartups 10:30:60\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.14",
+          "title": "Ensure SSH MaxSessions is set to 10 or less",
+          "status": "PASS",
+          "actual_value": "^MaxSessions\\s+([1-9]|10)$",
+          "expected_value": "^MaxSessions\\s+([1-9]|10)$",
+          "severity": "LOW",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: MaxSessions 10\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.15",
+          "title": "Ensure SSH LoginGraceTime is set to one minute or less",
+          "status": "PASS",
+          "actual_value": "^LoginGraceTime\\s+([1-6][0-9])$|^LoginGraceTime\\s+60$",
+          "expected_value": "^LoginGraceTime\\s+([1-6][0-9])$|^LoginGraceTime\\s+60$",
+          "severity": "LOW",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: LoginGraceTime 60\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.16",
+          "title": "Ensure SSH Banner is configured",
+          "status": "PASS",
+          "actual_value": "^Banner\\s+.*",
+          "expected_value": "^Banner\\s+.*",
+          "severity": "LOW",
+          "remediation": "Create /etc/ssh/banner.txt with login banner.\nEdit /etc/ssh/sshd_config. Set: Banner /etc/ssh/banner.txt\nThen run: sudo systemctl restart sshd"
+        },
+        {
+          "cis_id": "5.2.2",
+          "title": "Ensure SSH access is limited",
+          "status": "PASS",
+          "actual_value": "^(AllowUsers|AllowGroups|DenyUsers|DenyGroups)\\s+.*",
+          "expected_value": "^(AllowUsers|AllowGroups|DenyUsers|DenyGroups)\\s+.*",
+          "severity": "MEDIUM",
+          "remediation": "Edit /etc/ssh/sshd_config. Configure: AllowUsers or AllowGroups"
+        },
+        {
+          "cis_id": "5.2.3",
+          "title": "Ensure SSH LogLevel is appropriate",
+          "status": "PASS",
+          "actual_value": "^LogLevel\\s+(VERBOSE|DEBUG)$",
+          "expected_value": "^LogLevel\\s+(VERBOSE|DEBUG)$",
+          "severity": "LOW",
+          "remediation": "Edit /etc/ssh/sshd_config. Set: LogLevel VERBOSE"
+        }
+      ]
+    },
+    "kernel": {
+      "module": "kernel",
+      "status": "COMPLETED",
+      "timestamp": 1749268800,
+      "hostname": "prod-web-01.tex.internal",
+      "checks": [
+        {
+          "cis_id": "3.1.1",
+          "title": "Ensure IP forwarding is disabled",
+          "status": "PASS",
+          "actual_value": "0",
+          "expected_value": "0",
+          "severity": "HIGH",
+          "remediation": "Set kernel parameter: net.ipv4.ip_forward = 0"
+        },
+        {
+          "cis_id": "3.2.1",
+          "title": "Ensure ICMP redirects are not accepted",
+          "status": "PASS",
+          "actual_value": "0",
+          "expected_value": "0",
+          "severity": "HIGH",
+          "remediation": "Set kernel parameters to disable ICMP redirects"
+        },
+        {
+          "cis_id": "3.3.2",
+          "title": "Ensure TCP SYN Cookies is enabled",
+          "status": "PASS",
+          "actual_value": "1",
+          "expected_value": "1",
+          "severity": "HIGH",
+          "remediation": "Set kernel parameter: net.ipv4.tcp_syncookies = 1"
+        }
+      ]
+    },
+    "filesystem": {
+      "module": "filesystem",
+      "status": "COMPLETED",
+      "timestamp": 1749268800,
+      "hostname": "prod-web-01.tex.internal",
+      "checks": [
+        {
+          "cis_id": "1.1.1.1",
+          "title": "Ensure mounting of cramfs filesystems is disabled",
+          "status": "FAIL",
+          "actual_value": "world-writable (0777)",
+          "expected_value": "",
+          "severity": "LOW",
+          "remediation": "Run: echo 'install cramfs /bin/true' | sudo tee -a /etc/modprobe.d/cramfs.conf"
+        }
+      ]
+    },
+    "users": {
+      "module": "users",
+      "status": "COMPLETED",
+      "timestamp": 1749268800,
+      "hostname": "prod-web-01.tex.internal",
+      "checks": [
+        {
+          "cis_id": "5.1.1",
+          "title": "Ensure password expiration is 365 days or less",
+          "status": "PASS",
+          "actual_value": "^PASS_MAX_DAYS\\s+(\\d{1,2}|[12]\\d{2}|3[0-5]\\d|36[0-5])$",
+          "expected_value": "^PASS_MAX_DAYS\\s+(\\d{1,2}|[12]\\d{2}|3[0-5]\\d|36[0-5])$",
+          "severity": "MEDIUM",
+          "remediation": "Edit /etc/login.defs. Set: PASS_MAX_DAYS 365"
+        }
+      ]
+    },
+    "pam": {
+      "module": "pam",
+      "status": "COMPLETED",
+      "timestamp": 1749268800,
+      "hostname": "prod-web-01.tex.internal",
+      "checks": [
+        {
+          "cis_id": "5.3.1",
+          "title": "Ensure password creation requirements are configured",
+          "status": "PASS",
+          "actual_value": "^minlen\\s+=\\s+14",
+          "expected_value": "^minlen\\s+=\\s+14",
+          "severity": "HIGH",
+          "remediation": "Edit /etc/security/pwquality.conf. Configure password complexity requirements."
+        }
+      ]
+    },
+    "sudoers": {
+      "module": "sudoers",
+      "status": "COMPLETED",
+      "timestamp": 1749268800,
+      "hostname": "prod-web-01.tex.internal",
+      "checks": [
+        {
+          "cis_id": "5.4.1.1",
+          "title": "Ensure sudo is installed",
+          "status": "PASS",
+          "actual_value": "compliant",
+          "expected_value": "",
+          "severity": "MEDIUM",
+          "remediation": "Install sudo: sudo apt install sudo"
+        },
+        {
+          "cis_id": "5.4.2",
+          "title": "Ensure sudo commands use pty",
+          "status": "FAIL",
+          "actual_value": "NOPASSWD entry detected",
+          "expected_value": "^Defaults use_pty",
+          "severity": "MEDIUM",
+          "remediation": "Add to /etc/sudoers: Defaults use_pty"
+        },
+        {
+          "cis_id": "5.4.3",
+          "title": "Ensure sudo log file exists",
+          "status": "PASS",
+          "actual_value": "^Defaults logfile",
+          "expected_value": "^Defaults logfile",
+          "severity": "MEDIUM",
+          "remediation": "Add to /etc/sudoers: Defaults logfile='/var/log/sudo.log'"
+        }
+      ]
+    },
+    "firewall": {
+      "module": "firewall",
+      "status": "COMPLETED",
+      "timestamp": 1749268800,
+      "hostname": "prod-web-01.tex.internal",
+      "checks": [
+        {
+          "cis_id": "3.5.1.1",
+          "title": "Ensure ufw is installed",
+          "status": "PASS",
+          "actual_value": "compliant",
+          "expected_value": "",
+          "severity": "MEDIUM",
+          "remediation": "Install ufw: sudo apt install ufw"
+        },
+        {
+          "cis_id": "3.5.1.2",
+          "title": "Ensure ufw service is enabled",
+          "status": "PASS",
+          "actual_value": "compliant",
+          "expected_value": "",
+          "severity": "HIGH",
+          "remediation": "Enable and start ufw: sudo systemctl enable ufw && sudo systemctl start ufw"
+        },
+        {
+          "cis_id": "3.5.2.1",
+          "title": "Ensure default deny firewall policy",
+          "status": "PASS",
+          "actual_value": "compliant",
+          "expected_value": "",
+          "severity": "HIGH",
+          "remediation": "Configure firewall defaults: sudo ufw default deny incoming && sudo ufw default allow outgoing"
+        }
+      ]
+    },
+    "services": {
+      "module": "services",
+      "status": "COMPLETED",
+      "timestamp": 1749268800,
+      "hostname": "prod-web-01.tex.internal",
+      "checks": [
+        {
+          "cis_id": "2.1.1",
+          "title": "Ensure xinetd is not installed",
+          "status": "PASS",
+          "actual_value": "compliant",
+          "expected_value": "",
+          "severity": "HIGH",
+          "remediation": "Remove xinetd: sudo apt purge xinetd"
+        },
+        {
+          "cis_id": "2.2.1",
+          "title": "Ensure X11 Server is not installed",
+          "status": "FAIL",
+          "actual_value": "service enabled and listening",
+          "expected_value": "",
+          "severity": "MEDIUM",
+          "remediation": "Remove X11: sudo apt purge xserver-xorg-*"
+        }
+      ]
+    }
+  }
+}
