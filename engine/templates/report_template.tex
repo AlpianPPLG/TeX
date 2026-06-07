@@ -1,0 +1,151 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf-8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{graphicx}
+
+% Define custom colors
+\definecolor{slagreen}{rgb}{0.2, 0.8, 0.2}
+\definecolor{slaorange}{rgb}{1.0, 0.65, 0.0}
+\definecolor{slared}{rgb}{1.0, 0.2, 0.2}
+
+% Header and Footer
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textit{TeX Security Compliance Audit}}
+\chead{%%HOSTNAME%%}
+\rhead{\today}
+\cfoot{Page \thepage{} of \pageref{LastPage}}
+
+\title{\textbf{Security Compliance Audit Report}\\[0.3cm]
+{\large TeX Platform}\\[0.2cm]
+{\normalsize Host: %%HOSTNAME%%}}
+\author{Auditor: %%AUDITOR_NAME%%}
+\date{Audit Date: %%AUDIT_DATE%%}
+
+\begin{document}
+
+\maketitle
+
+\section*{Executive Summary}
+
+This document contains the results of a comprehensive security compliance audit conducted on %%HOSTNAME%% against the CIS Benchmark for Linux v3 standard. The audit was performed on %%AUDIT_DATE%% by %%AUDITOR_NAME%%.
+
+\subsection*{Security Posture Index (SPI)}
+
+\begin{center}
+\textbf{Overall SPI Score: \textcolor{%%SPI_COLOR%%}{%%SPI_SCORE%%}/100}
+\end{center}
+
+The Security Posture Index (SPI) is a normalized score representing the overall security posture of the system based on weighted control failures. A score of 100 indicates full compliance with all tested CIS controls.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lr}
+\toprule
+\textbf{Severity Level} & \textbf{Count} \\
+\midrule
+Critical Findings & %%CRITICAL_COUNT%% \\
+High Severity & %%HIGH_COUNT%% \\
+Medium Severity & %%MEDIUM_COUNT%% \\
+Low Severity & %%LOW_COUNT%% \\
+Passed Controls & %%PASS_COUNT%% \\
+\bottomrule
+\end{tabular}
+\caption{Audit Finding Summary}
+\end{table}
+
+\newpage
+
+\section*{Domain Scores}
+
+This section presents per-category security scores across the six audit domains:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lr}
+\toprule
+\textbf{Security Domain} & \textbf{Score} \\
+\midrule
+%%CATEGORY_TABLE_ROWS%%
+\bottomrule
+\end{tabular}
+\caption{Per-Domain Security Scores (0-100)}
+\end{table}
+
+\newpage
+
+\section*{Findings and Remediation}
+
+The following table lists all failed CIS controls requiring remediation:
+
+\begin{longtable}{|p{1.2cm}|p{1.2cm}|p{4cm}|p{6cm}|}
+\hline
+\textbf{CIS ID} & \textbf{Severity} & \textbf{Title} & \textbf{Remediation} \\
+\hline
+\endhead
+\hline
+\endfoot
+
+%%FINDINGS_TABLE_ROWS%%
+
+\end{longtable}
+
+\newpage
+
+\section*{Remediation Recommendations}
+
+To improve the security posture of this system, the following actions are recommended in priority order:
+
+\begin{enumerate}
+\item Address all CRITICAL severity findings immediately to prevent unauthorized access and data compromise.
+\item Remediate HIGH severity findings within 7 days to significantly reduce attack surface.
+\item Schedule remediation of MEDIUM and LOW severity findings as part of regular maintenance windows.
+\item Review all PASSED controls quarterly to detect configuration drift.
+\end{enumerate}
+
+\newpage
+
+\section*{Audit Methodology}
+
+This audit was conducted using the TeX Security Compliance Auditor, which automatically inspects system configuration against CIS Benchmark controls. The tool:
+
+\begin{itemize}
+\item Runs with standard user privileges (no root required for Level 1 checks)
+\item Executes modular probe scripts for each security domain
+\item Maps findings to CIS controls with severity classification
+\item Applies weighted risk scoring to calculate the Security Posture Index
+\item Generates compliance reports in PDF format
+\end{itemize}
+
+\subsection*{CIS Benchmark Mapping}
+
+This audit covers CIS Benchmark for Linux v3 controls across:
+\begin{itemize}
+\item Section 2: Services Configuration (22 controls)
+\item Section 3: Network Configuration (26 controls)
+\item Section 5: Access Control \& Authentication (41 controls)
+\item Section 6: System Maintenance (19 controls)
+\end{itemize}
+
+Total Controls Evaluated: 157
+
+\newpage
+
+\section*{Audit Certification}
+
+I hereby certify that this security compliance audit was conducted in accordance with CIS Benchmark standards and represents an accurate assessment of the security posture of the audited system as of the date of this report.
+
+\vspace{2cm}
+
+\noindent
+Auditor Name: \underline{\hspace{5cm}} Date: \underline{\hspace{2cm}}
+
+\noindent
+Signature: \underline{\hspace{8cm}}
+
+\end{document}
