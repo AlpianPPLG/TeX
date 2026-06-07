@@ -1,0 +1,893 @@
+{
+  "generated_at": 1749268800,
+  "hostname": "prod-web-01.tex.internal",
+  "spi": 75.8,
+  "category_scores": {
+    "ssh": 65.6,
+    "filesystem": 0.0,
+    "sudoers": 66.7,
+    "services": 60.0,
+    "pam": 100.0,
+    "users": 100.0,
+    "firewall": 100.0,
+    "kernel": 100.0
+  },
+  "findings_by_severity": {
+    "CRITICAL": [
+      {
+        "cis_id": "5.2.8",
+        "module": "ssh",
+        "title": "Ensure SSH PermitRootLogin is disabled",
+        "status": "FAIL",
+        "actual_value": "(parameter not set)",
+        "expected_value": "^PermitRootLogin\\s+no$",
+        "severity": "CRITICAL",
+        "base_severity": "CRITICAL",
+        "weight": 10.0,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: PermitRootLogin no\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "AC-6",
+          "IA-2"
+        ]
+      }
+    ],
+    "HIGH": [
+      {
+        "cis_id": "5.2.5",
+        "module": "ssh",
+        "title": "Ensure SSH IgnoreRhosts is enabled",
+        "status": "FAIL",
+        "actual_value": "(parameter not set)",
+        "expected_value": "^IgnoreRhosts\\s+yes$",
+        "severity": "HIGH",
+        "base_severity": "HIGH",
+        "weight": 7.5,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: IgnoreRhosts yes\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "AC-3",
+          "CM-6"
+        ]
+      }
+    ],
+    "MEDIUM": [
+      {
+        "cis_id": "5.2.4",
+        "module": "ssh",
+        "title": "Ensure SSH MaxAuthTries is set to 4 or less",
+        "status": "FAIL",
+        "actual_value": "(parameter not set)",
+        "expected_value": "^MaxAuthTries\\s+[1-4]$",
+        "severity": "MEDIUM",
+        "base_severity": "MEDIUM",
+        "weight": 5.0,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: MaxAuthTries 4\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "AC-7"
+        ]
+      },
+      {
+        "cis_id": "5.2.13",
+        "module": "ssh",
+        "title": "Ensure SSH MaxStartups is configured",
+        "status": "FAIL",
+        "actual_value": "(parameter not set)",
+        "expected_value": "^MaxStartups\\s+(10:30:60|[1-9]:[1-9][0-9]:[1-9][0-9])$",
+        "severity": "MEDIUM",
+        "base_severity": "MEDIUM",
+        "weight": 5.0,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: MaxStartups 10:30:60\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "SC-5"
+        ]
+      },
+      {
+        "cis_id": "5.4.2",
+        "module": "sudoers",
+        "title": "Ensure sudo commands use pty",
+        "status": "FAIL",
+        "actual_value": "NOPASSWD entry detected",
+        "expected_value": "^Defaults use_pty",
+        "severity": "MEDIUM",
+        "base_severity": "MEDIUM",
+        "weight": 5.0,
+        "remediation": "Add to /etc/sudoers: Defaults use_pty",
+        "nist_800_53": [
+          "AC-3"
+        ]
+      },
+      {
+        "cis_id": "2.2.1",
+        "module": "services",
+        "title": "Ensure X11 Server is not installed",
+        "status": "FAIL",
+        "actual_value": "service enabled and listening",
+        "expected_value": "",
+        "severity": "MEDIUM",
+        "base_severity": "MEDIUM",
+        "weight": 5.0,
+        "remediation": "Remove X11: sudo apt purge xserver-xorg-*",
+        "nist_800_53": [
+          "CM-6"
+        ]
+      }
+    ],
+    "LOW": [
+      {
+        "cis_id": "1.1.1.1",
+        "module": "filesystem",
+        "title": "Ensure mounting of cramfs filesystems is disabled",
+        "status": "FAIL",
+        "actual_value": "world-writable (0777)",
+        "expected_value": "",
+        "severity": "LOW",
+        "base_severity": "LOW",
+        "weight": 2.5,
+        "remediation": "Run: echo 'install cramfs /bin/true' | sudo tee -a /etc/modprobe.d/cramfs.conf",
+        "nist_800_53": [
+          "CM-6"
+        ]
+      }
+    ],
+    "PASS": [
+      {
+        "cis_id": "5.2.1",
+        "module": "ssh",
+        "title": "Ensure SSH Protocol is set to 2",
+        "status": "PASS",
+        "actual_value": "^Protocol\\s+2$",
+        "expected_value": "^Protocol\\s+2$",
+        "severity": "PASS",
+        "base_severity": "CRITICAL",
+        "weight": 10.0,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: Protocol 2\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "SC-7",
+          "SC-10"
+        ]
+      },
+      {
+        "cis_id": "5.2.6",
+        "module": "ssh",
+        "title": "Ensure SSH HostbasedAuthentication is disabled",
+        "status": "PASS",
+        "actual_value": "^HostbasedAuthentication\\s+no$",
+        "expected_value": "^HostbasedAuthentication\\s+no$",
+        "severity": "PASS",
+        "base_severity": "HIGH",
+        "weight": 7.5,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: HostbasedAuthentication no\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "IA-2",
+          "AC-6"
+        ]
+      },
+      {
+        "cis_id": "5.2.9",
+        "module": "ssh",
+        "title": "Ensure SSH PermitEmptyPasswords is disabled",
+        "status": "PASS",
+        "actual_value": "^PermitEmptyPasswords\\s+no$",
+        "expected_value": "^PermitEmptyPasswords\\s+no$",
+        "severity": "PASS",
+        "base_severity": "CRITICAL",
+        "weight": 10.0,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: PermitEmptyPasswords no\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "IA-5",
+          "AC-6"
+        ]
+      },
+      {
+        "cis_id": "5.2.10",
+        "module": "ssh",
+        "title": "Ensure SSH PermitUserEnvironment is disabled",
+        "status": "PASS",
+        "actual_value": "^PermitUserEnvironment\\s+no$",
+        "expected_value": "^PermitUserEnvironment\\s+no$",
+        "severity": "PASS",
+        "base_severity": "MEDIUM",
+        "weight": 5.0,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: PermitUserEnvironment no\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "CM-6",
+          "AC-3"
+        ]
+      },
+      {
+        "cis_id": "5.2.12",
+        "module": "ssh",
+        "title": "Ensure SSH X11Forwarding is disabled",
+        "status": "PASS",
+        "actual_value": "^X11Forwarding\\s+no$",
+        "expected_value": "^X11Forwarding\\s+no$",
+        "severity": "PASS",
+        "base_severity": "MEDIUM",
+        "weight": 5.0,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: X11Forwarding no\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "AC-3",
+          "CM-6"
+        ]
+      },
+      {
+        "cis_id": "5.2.14",
+        "module": "ssh",
+        "title": "Ensure SSH MaxSessions is set to 10 or less",
+        "status": "PASS",
+        "actual_value": "^MaxSessions\\s+([1-9]|10)$",
+        "expected_value": "^MaxSessions\\s+([1-9]|10)$",
+        "severity": "PASS",
+        "base_severity": "LOW",
+        "weight": 2.5,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: MaxSessions 10\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "SC-5"
+        ]
+      },
+      {
+        "cis_id": "5.2.15",
+        "module": "ssh",
+        "title": "Ensure SSH LoginGraceTime is set to one minute or less",
+        "status": "PASS",
+        "actual_value": "^LoginGraceTime\\s+([1-6][0-9])$|^LoginGraceTime\\s+60$",
+        "expected_value": "^LoginGraceTime\\s+([1-6][0-9])$|^LoginGraceTime\\s+60$",
+        "severity": "PASS",
+        "base_severity": "LOW",
+        "weight": 2.5,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: LoginGraceTime 60\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "SC-10"
+        ]
+      },
+      {
+        "cis_id": "5.2.16",
+        "module": "ssh",
+        "title": "Ensure SSH Banner is configured",
+        "status": "PASS",
+        "actual_value": "^Banner\\s+.*",
+        "expected_value": "^Banner\\s+.*",
+        "severity": "PASS",
+        "base_severity": "LOW",
+        "weight": 2.5,
+        "remediation": "Create /etc/ssh/banner.txt with login banner.\nEdit /etc/ssh/sshd_config. Set: Banner /etc/ssh/banner.txt\nThen run: sudo systemctl restart sshd",
+        "nist_800_53": [
+          "AC-8"
+        ]
+      },
+      {
+        "cis_id": "5.2.2",
+        "module": "ssh",
+        "title": "Ensure SSH access is limited",
+        "status": "PASS",
+        "actual_value": "^(AllowUsers|AllowGroups|DenyUsers|DenyGroups)\\s+.*",
+        "expected_value": "^(AllowUsers|AllowGroups|DenyUsers|DenyGroups)\\s+.*",
+        "severity": "PASS",
+        "base_severity": "MEDIUM",
+        "weight": 5.0,
+        "remediation": "Edit /etc/ssh/sshd_config. Configure: AllowUsers or AllowGroups",
+        "nist_800_53": [
+          "AC-3"
+        ]
+      },
+      {
+        "cis_id": "5.2.3",
+        "module": "ssh",
+        "title": "Ensure SSH LogLevel is appropriate",
+        "status": "PASS",
+        "actual_value": "^LogLevel\\s+(VERBOSE|DEBUG)$",
+        "expected_value": "^LogLevel\\s+(VERBOSE|DEBUG)$",
+        "severity": "PASS",
+        "base_severity": "LOW",
+        "weight": 2.5,
+        "remediation": "Edit /etc/ssh/sshd_config. Set: LogLevel VERBOSE",
+        "nist_800_53": [
+          "AU-2"
+        ]
+      },
+      {
+        "cis_id": "3.1.1",
+        "module": "kernel",
+        "title": "Ensure IP forwarding is disabled",
+        "status": "PASS",
+        "actual_value": "0",
+        "expected_value": "0",
+        "severity": "PASS",
+        "base_severity": "HIGH",
+        "weight": 7.5,
+        "remediation": "Set kernel parameter: net.ipv4.ip_forward = 0",
+        "nist_800_53": [
+          "SC-7"
+        ]
+      },
+      {
+        "cis_id": "3.2.1",
+        "module": "kernel",
+        "title": "Ensure ICMP redirects are not accepted",
+        "status": "PASS",
+        "actual_value": "0",
+        "expected_value": "0",
+        "severity": "PASS",
+        "base_severity": "HIGH",
+        "weight": 7.5,
+        "remediation": "Set kernel parameters to disable ICMP redirects",
+        "nist_800_53": [
+          "SC-7",
+          "SI-4"
+        ]
+      },
+      {
+        "cis_id": "3.3.2",
+        "module": "kernel",
+        "title": "Ensure TCP SYN Cookies is enabled",
+        "status": "PASS",
+        "actual_value": "1",
+        "expected_value": "1",
+        "severity": "PASS",
+        "base_severity": "HIGH",
+        "weight": 7.5,
+        "remediation": "Set kernel parameter: net.ipv4.tcp_syncookies = 1",
+        "nist_800_53": [
+          "SC-5"
+        ]
+      },
+      {
+        "cis_id": "5.1.1",
+        "module": "users",
+        "title": "Ensure password expiration is 365 days or less",
+        "status": "PASS",
+        "actual_value": "^PASS_MAX_DAYS\\s+(\\d{1,2}|[12]\\d{2}|3[0-5]\\d|36[0-5])$",
+        "expected_value": "^PASS_MAX_DAYS\\s+(\\d{1,2}|[12]\\d{2}|3[0-5]\\d|36[0-5])$",
+        "severity": "PASS",
+        "base_severity": "MEDIUM",
+        "weight": 5.0,
+        "remediation": "Edit /etc/login.defs. Set: PASS_MAX_DAYS 365",
+        "nist_800_53": [
+          "IA-5"
+        ]
+      },
+      {
+        "cis_id": "5.3.1",
+        "module": "pam",
+        "title": "Ensure password creation requirements are configured",
+        "status": "PASS",
+        "actual_value": "^minlen\\s+=\\s+14",
+        "expected_value": "^minlen\\s+=\\s+14",
+        "severity": "PASS",
+        "base_severity": "HIGH",
+        "weight": 7.5,
+        "remediation": "Edit /etc/security/pwquality.conf. Configure password complexity requirements.",
+        "nist_800_53": [
+          "IA-5"
+        ]
+      },
+      {
+        "cis_id": "5.4.1.1",
+        "module": "sudoers",
+        "title": "Ensure sudo is installed",
+        "status": "PASS",
+        "actual_value": "compliant",
+        "expected_value": "",
+        "severity": "PASS",
+        "base_severity": "MEDIUM",
+        "weight": 5.0,
+        "remediation": "Install sudo: sudo apt install sudo",
+        "nist_800_53": [
+          "AC-6"
+        ]
+      },
+      {
+        "cis_id": "5.4.3",
+        "module": "sudoers",
+        "title": "Ensure sudo log file exists",
+        "status": "PASS",
+        "actual_value": "^Defaults logfile",
+        "expected_value": "^Defaults logfile",
+        "severity": "PASS",
+        "base_severity": "MEDIUM",
+        "weight": 5.0,
+        "remediation": "Add to /etc/sudoers: Defaults logfile='/var/log/sudo.log'",
+        "nist_800_53": [
+          "AU-2"
+        ]
+      },
+      {
+        "cis_id": "3.5.1.1",
+        "module": "firewall",
+        "title": "Ensure ufw is installed",
+        "status": "PASS",
+        "actual_value": "compliant",
+        "expected_value": "",
+        "severity": "PASS",
+        "base_severity": "MEDIUM",
+        "weight": 5.0,
+        "remediation": "Install ufw: sudo apt install ufw",
+        "nist_800_53": [
+          "SC-7"
+        ]
+      },
+      {
+        "cis_id": "3.5.1.2",
+        "module": "firewall",
+        "title": "Ensure ufw service is enabled",
+        "status": "PASS",
+        "actual_value": "compliant",
+        "expected_value": "",
+        "severity": "PASS",
+        "base_severity": "HIGH",
+        "weight": 7.5,
+        "remediation": "Enable and start ufw: sudo systemctl enable ufw && sudo systemctl start ufw",
+        "nist_800_53": [
+          "SC-7"
+        ]
+      },
+      {
+        "cis_id": "3.5.2.1",
+        "module": "firewall",
+        "title": "Ensure default deny firewall policy",
+        "status": "PASS",
+        "actual_value": "compliant",
+        "expected_value": "",
+        "severity": "PASS",
+        "base_severity": "HIGH",
+        "weight": 7.5,
+        "remediation": "Configure firewall defaults: sudo ufw default deny incoming && sudo ufw default allow outgoing",
+        "nist_800_53": [
+          "SC-7"
+        ]
+      },
+      {
+        "cis_id": "2.1.1",
+        "module": "services",
+        "title": "Ensure xinetd is not installed",
+        "status": "PASS",
+        "actual_value": "compliant",
+        "expected_value": "",
+        "severity": "PASS",
+        "base_severity": "HIGH",
+        "weight": 7.5,
+        "remediation": "Remove xinetd: sudo apt purge xinetd",
+        "nist_800_53": [
+          "CM-6"
+        ]
+      }
+    ]
+  },
+  "all_checks": [
+    {
+      "cis_id": "5.2.1",
+      "module": "ssh",
+      "title": "Ensure SSH Protocol is set to 2",
+      "status": "PASS",
+      "actual_value": "^Protocol\\s+2$",
+      "expected_value": "^Protocol\\s+2$",
+      "severity": "PASS",
+      "base_severity": "CRITICAL",
+      "weight": 10.0,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: Protocol 2\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "SC-7",
+        "SC-10"
+      ]
+    },
+    {
+      "cis_id": "5.2.4",
+      "module": "ssh",
+      "title": "Ensure SSH MaxAuthTries is set to 4 or less",
+      "status": "FAIL",
+      "actual_value": "(parameter not set)",
+      "expected_value": "^MaxAuthTries\\s+[1-4]$",
+      "severity": "MEDIUM",
+      "base_severity": "MEDIUM",
+      "weight": 5.0,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: MaxAuthTries 4\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "AC-7"
+      ]
+    },
+    {
+      "cis_id": "5.2.5",
+      "module": "ssh",
+      "title": "Ensure SSH IgnoreRhosts is enabled",
+      "status": "FAIL",
+      "actual_value": "(parameter not set)",
+      "expected_value": "^IgnoreRhosts\\s+yes$",
+      "severity": "HIGH",
+      "base_severity": "HIGH",
+      "weight": 7.5,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: IgnoreRhosts yes\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "AC-3",
+        "CM-6"
+      ]
+    },
+    {
+      "cis_id": "5.2.6",
+      "module": "ssh",
+      "title": "Ensure SSH HostbasedAuthentication is disabled",
+      "status": "PASS",
+      "actual_value": "^HostbasedAuthentication\\s+no$",
+      "expected_value": "^HostbasedAuthentication\\s+no$",
+      "severity": "PASS",
+      "base_severity": "HIGH",
+      "weight": 7.5,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: HostbasedAuthentication no\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "IA-2",
+        "AC-6"
+      ]
+    },
+    {
+      "cis_id": "5.2.8",
+      "module": "ssh",
+      "title": "Ensure SSH PermitRootLogin is disabled",
+      "status": "FAIL",
+      "actual_value": "(parameter not set)",
+      "expected_value": "^PermitRootLogin\\s+no$",
+      "severity": "CRITICAL",
+      "base_severity": "CRITICAL",
+      "weight": 10.0,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: PermitRootLogin no\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "AC-6",
+        "IA-2"
+      ]
+    },
+    {
+      "cis_id": "5.2.9",
+      "module": "ssh",
+      "title": "Ensure SSH PermitEmptyPasswords is disabled",
+      "status": "PASS",
+      "actual_value": "^PermitEmptyPasswords\\s+no$",
+      "expected_value": "^PermitEmptyPasswords\\s+no$",
+      "severity": "PASS",
+      "base_severity": "CRITICAL",
+      "weight": 10.0,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: PermitEmptyPasswords no\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "IA-5",
+        "AC-6"
+      ]
+    },
+    {
+      "cis_id": "5.2.10",
+      "module": "ssh",
+      "title": "Ensure SSH PermitUserEnvironment is disabled",
+      "status": "PASS",
+      "actual_value": "^PermitUserEnvironment\\s+no$",
+      "expected_value": "^PermitUserEnvironment\\s+no$",
+      "severity": "PASS",
+      "base_severity": "MEDIUM",
+      "weight": 5.0,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: PermitUserEnvironment no\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "CM-6",
+        "AC-3"
+      ]
+    },
+    {
+      "cis_id": "5.2.12",
+      "module": "ssh",
+      "title": "Ensure SSH X11Forwarding is disabled",
+      "status": "PASS",
+      "actual_value": "^X11Forwarding\\s+no$",
+      "expected_value": "^X11Forwarding\\s+no$",
+      "severity": "PASS",
+      "base_severity": "MEDIUM",
+      "weight": 5.0,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: X11Forwarding no\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "AC-3",
+        "CM-6"
+      ]
+    },
+    {
+      "cis_id": "5.2.13",
+      "module": "ssh",
+      "title": "Ensure SSH MaxStartups is configured",
+      "status": "FAIL",
+      "actual_value": "(parameter not set)",
+      "expected_value": "^MaxStartups\\s+(10:30:60|[1-9]:[1-9][0-9]:[1-9][0-9])$",
+      "severity": "MEDIUM",
+      "base_severity": "MEDIUM",
+      "weight": 5.0,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: MaxStartups 10:30:60\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "SC-5"
+      ]
+    },
+    {
+      "cis_id": "5.2.14",
+      "module": "ssh",
+      "title": "Ensure SSH MaxSessions is set to 10 or less",
+      "status": "PASS",
+      "actual_value": "^MaxSessions\\s+([1-9]|10)$",
+      "expected_value": "^MaxSessions\\s+([1-9]|10)$",
+      "severity": "PASS",
+      "base_severity": "LOW",
+      "weight": 2.5,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: MaxSessions 10\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "SC-5"
+      ]
+    },
+    {
+      "cis_id": "5.2.15",
+      "module": "ssh",
+      "title": "Ensure SSH LoginGraceTime is set to one minute or less",
+      "status": "PASS",
+      "actual_value": "^LoginGraceTime\\s+([1-6][0-9])$|^LoginGraceTime\\s+60$",
+      "expected_value": "^LoginGraceTime\\s+([1-6][0-9])$|^LoginGraceTime\\s+60$",
+      "severity": "PASS",
+      "base_severity": "LOW",
+      "weight": 2.5,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: LoginGraceTime 60\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "SC-10"
+      ]
+    },
+    {
+      "cis_id": "5.2.16",
+      "module": "ssh",
+      "title": "Ensure SSH Banner is configured",
+      "status": "PASS",
+      "actual_value": "^Banner\\s+.*",
+      "expected_value": "^Banner\\s+.*",
+      "severity": "PASS",
+      "base_severity": "LOW",
+      "weight": 2.5,
+      "remediation": "Create /etc/ssh/banner.txt with login banner.\nEdit /etc/ssh/sshd_config. Set: Banner /etc/ssh/banner.txt\nThen run: sudo systemctl restart sshd",
+      "nist_800_53": [
+        "AC-8"
+      ]
+    },
+    {
+      "cis_id": "5.2.2",
+      "module": "ssh",
+      "title": "Ensure SSH access is limited",
+      "status": "PASS",
+      "actual_value": "^(AllowUsers|AllowGroups|DenyUsers|DenyGroups)\\s+.*",
+      "expected_value": "^(AllowUsers|AllowGroups|DenyUsers|DenyGroups)\\s+.*",
+      "severity": "PASS",
+      "base_severity": "MEDIUM",
+      "weight": 5.0,
+      "remediation": "Edit /etc/ssh/sshd_config. Configure: AllowUsers or AllowGroups",
+      "nist_800_53": [
+        "AC-3"
+      ]
+    },
+    {
+      "cis_id": "5.2.3",
+      "module": "ssh",
+      "title": "Ensure SSH LogLevel is appropriate",
+      "status": "PASS",
+      "actual_value": "^LogLevel\\s+(VERBOSE|DEBUG)$",
+      "expected_value": "^LogLevel\\s+(VERBOSE|DEBUG)$",
+      "severity": "PASS",
+      "base_severity": "LOW",
+      "weight": 2.5,
+      "remediation": "Edit /etc/ssh/sshd_config. Set: LogLevel VERBOSE",
+      "nist_800_53": [
+        "AU-2"
+      ]
+    },
+    {
+      "cis_id": "3.1.1",
+      "module": "kernel",
+      "title": "Ensure IP forwarding is disabled",
+      "status": "PASS",
+      "actual_value": "0",
+      "expected_value": "0",
+      "severity": "PASS",
+      "base_severity": "HIGH",
+      "weight": 7.5,
+      "remediation": "Set kernel parameter: net.ipv4.ip_forward = 0",
+      "nist_800_53": [
+        "SC-7"
+      ]
+    },
+    {
+      "cis_id": "3.2.1",
+      "module": "kernel",
+      "title": "Ensure ICMP redirects are not accepted",
+      "status": "PASS",
+      "actual_value": "0",
+      "expected_value": "0",
+      "severity": "PASS",
+      "base_severity": "HIGH",
+      "weight": 7.5,
+      "remediation": "Set kernel parameters to disable ICMP redirects",
+      "nist_800_53": [
+        "SC-7",
+        "SI-4"
+      ]
+    },
+    {
+      "cis_id": "3.3.2",
+      "module": "kernel",
+      "title": "Ensure TCP SYN Cookies is enabled",
+      "status": "PASS",
+      "actual_value": "1",
+      "expected_value": "1",
+      "severity": "PASS",
+      "base_severity": "HIGH",
+      "weight": 7.5,
+      "remediation": "Set kernel parameter: net.ipv4.tcp_syncookies = 1",
+      "nist_800_53": [
+        "SC-5"
+      ]
+    },
+    {
+      "cis_id": "1.1.1.1",
+      "module": "filesystem",
+      "title": "Ensure mounting of cramfs filesystems is disabled",
+      "status": "FAIL",
+      "actual_value": "world-writable (0777)",
+      "expected_value": "",
+      "severity": "LOW",
+      "base_severity": "LOW",
+      "weight": 2.5,
+      "remediation": "Run: echo 'install cramfs /bin/true' | sudo tee -a /etc/modprobe.d/cramfs.conf",
+      "nist_800_53": [
+        "CM-6"
+      ]
+    },
+    {
+      "cis_id": "5.1.1",
+      "module": "users",
+      "title": "Ensure password expiration is 365 days or less",
+      "status": "PASS",
+      "actual_value": "^PASS_MAX_DAYS\\s+(\\d{1,2}|[12]\\d{2}|3[0-5]\\d|36[0-5])$",
+      "expected_value": "^PASS_MAX_DAYS\\s+(\\d{1,2}|[12]\\d{2}|3[0-5]\\d|36[0-5])$",
+      "severity": "PASS",
+      "base_severity": "MEDIUM",
+      "weight": 5.0,
+      "remediation": "Edit /etc/login.defs. Set: PASS_MAX_DAYS 365",
+      "nist_800_53": [
+        "IA-5"
+      ]
+    },
+    {
+      "cis_id": "5.3.1",
+      "module": "pam",
+      "title": "Ensure password creation requirements are configured",
+      "status": "PASS",
+      "actual_value": "^minlen\\s+=\\s+14",
+      "expected_value": "^minlen\\s+=\\s+14",
+      "severity": "PASS",
+      "base_severity": "HIGH",
+      "weight": 7.5,
+      "remediation": "Edit /etc/security/pwquality.conf. Configure password complexity requirements.",
+      "nist_800_53": [
+        "IA-5"
+      ]
+    },
+    {
+      "cis_id": "5.4.1.1",
+      "module": "sudoers",
+      "title": "Ensure sudo is installed",
+      "status": "PASS",
+      "actual_value": "compliant",
+      "expected_value": "",
+      "severity": "PASS",
+      "base_severity": "MEDIUM",
+      "weight": 5.0,
+      "remediation": "Install sudo: sudo apt install sudo",
+      "nist_800_53": [
+        "AC-6"
+      ]
+    },
+    {
+      "cis_id": "5.4.2",
+      "module": "sudoers",
+      "title": "Ensure sudo commands use pty",
+      "status": "FAIL",
+      "actual_value": "NOPASSWD entry detected",
+      "expected_value": "^Defaults use_pty",
+      "severity": "MEDIUM",
+      "base_severity": "MEDIUM",
+      "weight": 5.0,
+      "remediation": "Add to /etc/sudoers: Defaults use_pty",
+      "nist_800_53": [
+        "AC-3"
+      ]
+    },
+    {
+      "cis_id": "5.4.3",
+      "module": "sudoers",
+      "title": "Ensure sudo log file exists",
+      "status": "PASS",
+      "actual_value": "^Defaults logfile",
+      "expected_value": "^Defaults logfile",
+      "severity": "PASS",
+      "base_severity": "MEDIUM",
+      "weight": 5.0,
+      "remediation": "Add to /etc/sudoers: Defaults logfile='/var/log/sudo.log'",
+      "nist_800_53": [
+        "AU-2"
+      ]
+    },
+    {
+      "cis_id": "3.5.1.1",
+      "module": "firewall",
+      "title": "Ensure ufw is installed",
+      "status": "PASS",
+      "actual_value": "compliant",
+      "expected_value": "",
+      "severity": "PASS",
+      "base_severity": "MEDIUM",
+      "weight": 5.0,
+      "remediation": "Install ufw: sudo apt install ufw",
+      "nist_800_53": [
+        "SC-7"
+      ]
+    },
+    {
+      "cis_id": "3.5.1.2",
+      "module": "firewall",
+      "title": "Ensure ufw service is enabled",
+      "status": "PASS",
+      "actual_value": "compliant",
+      "expected_value": "",
+      "severity": "PASS",
+      "base_severity": "HIGH",
+      "weight": 7.5,
+      "remediation": "Enable and start ufw: sudo systemctl enable ufw && sudo systemctl start ufw",
+      "nist_800_53": [
+        "SC-7"
+      ]
+    },
+    {
+      "cis_id": "3.5.2.1",
+      "module": "firewall",
+      "title": "Ensure default deny firewall policy",
+      "status": "PASS",
+      "actual_value": "compliant",
+      "expected_value": "",
+      "severity": "PASS",
+      "base_severity": "HIGH",
+      "weight": 7.5,
+      "remediation": "Configure firewall defaults: sudo ufw default deny incoming && sudo ufw default allow outgoing",
+      "nist_800_53": [
+        "SC-7"
+      ]
+    },
+    {
+      "cis_id": "2.1.1",
+      "module": "services",
+      "title": "Ensure xinetd is not installed",
+      "status": "PASS",
+      "actual_value": "compliant",
+      "expected_value": "",
+      "severity": "PASS",
+      "base_severity": "HIGH",
+      "weight": 7.5,
+      "remediation": "Remove xinetd: sudo apt purge xinetd",
+      "nist_800_53": [
+        "CM-6"
+      ]
+    },
+    {
+      "cis_id": "2.2.1",
+      "module": "services",
+      "title": "Ensure X11 Server is not installed",
+      "status": "FAIL",
+      "actual_value": "service enabled and listening",
+      "expected_value": "",
+      "severity": "MEDIUM",
+      "base_severity": "MEDIUM",
+      "weight": 5.0,
+      "remediation": "Remove X11: sudo apt purge xserver-xorg-*",
+      "nist_800_53": [
+        "CM-6"
+      ]
+    }
+  ],
+  "audit_metadata": {
+    "timestamp": 1749268800,
+    "hostname": "prod-web-01.tex.internal",
+    "os_name": "Ubuntu 22.04.4 LTS",
+    "kernel_version": "5.15.0-105-generic",
+    "audit_user": "tex-auditor",
+    "tex_version": "1.0.0"
+  }
+}

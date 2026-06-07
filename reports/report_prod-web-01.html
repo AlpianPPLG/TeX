@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TeX Compliance Report — prod-web-01.tex.internal</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #f3f4f6; color: #111827;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+  header.report {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #fff; border-radius: 16px; padding: 32px; margin-bottom: 24px;
+  }
+  header.report h1 { margin: 0 0 4px; font-size: 26px; letter-spacing: -0.02em; }
+  header.report .sub { color: #94a3b8; font-size: 14px; }
+  .meta-grid { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 20px; font-size: 13px; }
+  .meta-grid div span { display: block; color: #94a3b8; text-transform: uppercase; letter-spacing: .05em; font-size: 11px; }
+  .meta-grid div b { font-weight: 600; }
+  .spi-wrap { display: flex; align-items: center; gap: 24px; background:#fff; border-radius:16px; padding:24px; margin-bottom:24px; box-shadow:0 1px 2px rgba(0,0,0,.06); }
+  .gauge { position: relative; width: 132px; height: 132px; flex: none; }
+  .gauge svg { transform: rotate(-90deg); }
+  .gauge .val { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .gauge .val b { font-size: 30px; }
+  .gauge .val small { color:#6b7280; font-size:11px; }
+  .spi-text h2 { margin: 0 0 4px; font-size: 18px; }
+  .spi-text p { margin: 0; color:#6b7280; font-size:14px; max-width: 520px; }
+  .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 24px; }
+  .card { background:#fff; border-radius:12px; padding:16px; text-align:center; box-shadow:0 1px 2px rgba(0,0,0,.06); }
+  .card-count { font-size: 28px; font-weight: 700; }
+  .card-label { font-size: 11px; color:#6b7280; text-transform:uppercase; letter-spacing:.06em; margin-top:4px; }
+  section.block { background:#fff; border-radius:16px; padding:24px; margin-bottom:24px; box-shadow:0 1px 2px rgba(0,0,0,.06); }
+  section.block h3 { margin:0 0 16px; font-size:16px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; color:#6b7280; font-weight:600; text-transform:uppercase; letter-spacing:.04em; font-size:11px; padding:8px 10px; border-bottom:1px solid #e5e7eb; }
+  td { padding:10px; border-bottom:1px solid #f3f4f6; vertical-align:top; }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size:12px; }
+  .pill { color:#fff; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:600; }
+  .bar-track { background:#e5e7eb; border-radius:999px; height:8px; width:100%; min-width:120px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:999px; }
+  .cat-name { font-weight:600; white-space:nowrap; }
+  .cat-score { text-align:right; font-variant-numeric: tabular-nums; font-weight:600; }
+  .cat-bar-cell { width: 70%; }
+  .rem { color:#374151; }
+  .empty { text-align:center; color:#16a34a; padding:24px; font-weight:600; }
+  footer { text-align:center; color:#9ca3af; font-size:12px; margin-top:8px; }
+  @media (max-width: 640px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .spi-wrap { flex-direction: column; text-align:center; }
+    table { font-size:12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="report">
+    <h1>⚔ TeX Security Compliance Report</h1>
+    <div class="sub">CIS Benchmark for Linux v3 · Generated 07 June 2025, 04:00 UTC</div>
+    <div class="meta-grid">
+      <div><span>Host</span><b>prod-web-01.tex.internal</b></div>
+      <div><span>Operating System</span><b>Ubuntu 22.04.4 LTS</b></div>
+      <div><span>Kernel</span><b>5.15.0-105-generic</b></div>
+      <div><span>Controls Evaluated</span><b>28</b></div>
+      <div><span>Passed / Failed</span><b>21 / 7</b></div>
+    </div>
+  </header>
+
+  <div class="spi-wrap">
+    <div class="gauge">
+      <svg width="132" height="132" viewBox="0 0 132 132">
+        <circle cx="66" cy="66" r="58" fill="none" stroke="#e5e7eb" stroke-width="12"/>
+        <circle cx="66" cy="66" r="58" fill="none" stroke="#d97706" stroke-width="12"
+                stroke-linecap="round" stroke-dasharray="276.2 364.4"/>
+      </svg>
+      <div class="val"><b style="color:#d97706">75.8</b><small>SPI / 100</small></div>
+    </div>
+    <div class="spi-text">
+      <h2>Security Posture Index — Moderate</h2>
+      <p>The SPI is a severity-weighted score across all evaluated CIS controls.
+         A higher score reflects stronger compliance. This host has
+         <b>7</b> actionable finding(s) requiring remediation.</p>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card" style="border-top:4px solid #dc2626"><div class="card-count">1</div><div class="card-label">CRITICAL</div></div>
+<div class="card" style="border-top:4px solid #ea580c"><div class="card-count">1</div><div class="card-label">HIGH</div></div>
+<div class="card" style="border-top:4px solid #d97706"><div class="card-count">4</div><div class="card-label">MEDIUM</div></div>
+<div class="card" style="border-top:4px solid #2563eb"><div class="card-count">1</div><div class="card-label">LOW</div></div>
+<div class="card" style="border-top:4px solid #16a34a"><div class="card-count">21</div><div class="card-label">PASS</div></div>
+  </div>
+
+  <section class="block">
+    <h3>Compliance by Category</h3>
+    <table>
+      <thead><tr><th>Domain</th><th>Score</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td class='cat-name'>FILESYSTEM</td><td class='cat-bar-cell'><div class='bar-track'><div class='bar-fill' style='width:0.0%;background:#dc2626'></div></div></td><td class='cat-score'>0.0</td></tr>
+<tr><td class='cat-name'>FIREWALL</td><td class='cat-bar-cell'><div class='bar-track'><div class='bar-fill' style='width:100.0%;background:#16a34a'></div></div></td><td class='cat-score'>100.0</td></tr>
+<tr><td class='cat-name'>KERNEL</td><td class='cat-bar-cell'><div class='bar-track'><div class='bar-fill' style='width:100.0%;background:#16a34a'></div></div></td><td class='cat-score'>100.0</td></tr>
+<tr><td class='cat-name'>PAM</td><td class='cat-bar-cell'><div class='bar-track'><div class='bar-fill' style='width:100.0%;background:#16a34a'></div></div></td><td class='cat-score'>100.0</td></tr>
+<tr><td class='cat-name'>SERVICES</td><td class='cat-bar-cell'><div class='bar-track'><div class='bar-fill' style='width:60.0%;background:#d97706'></div></div></td><td class='cat-score'>60.0</td></tr>
+<tr><td class='cat-name'>SSH</td><td class='cat-bar-cell'><div class='bar-track'><div class='bar-fill' style='width:65.6%;background:#d97706'></div></div></td><td class='cat-score'>65.6</td></tr>
+<tr><td class='cat-name'>SUDOERS</td><td class='cat-bar-cell'><div class='bar-track'><div class='bar-fill' style='width:66.7%;background:#d97706'></div></div></td><td class='cat-score'>66.7</td></tr>
+<tr><td class='cat-name'>USERS</td><td class='cat-bar-cell'><div class='bar-track'><div class='bar-fill' style='width:100.0%;background:#16a34a'></div></div></td><td class='cat-score'>100.0</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block">
+    <h3>Findings &amp; Remediation (7)</h3>
+    <table>
+      <thead><tr><th>CIS ID</th><th>Severity</th><th>Title</th><th>Module</th><th>Remediation</th></tr></thead>
+      <tbody>
+        <tr><td class='mono'>5.2.8</td><td><span class='pill' style='background:#dc2626'>CRITICAL</span></td><td>Ensure SSH PermitRootLogin is disabled</td><td class='mono'>ssh</td><td class='rem'>Edit /etc/ssh/sshd_config. Set: PermitRootLogin no<br>Then run: sudo systemctl restart sshd</td></tr>
+<tr><td class='mono'>5.2.5</td><td><span class='pill' style='background:#ea580c'>HIGH</span></td><td>Ensure SSH IgnoreRhosts is enabled</td><td class='mono'>ssh</td><td class='rem'>Edit /etc/ssh/sshd_config. Set: IgnoreRhosts yes<br>Then run: sudo systemctl restart sshd</td></tr>
+<tr><td class='mono'>5.2.4</td><td><span class='pill' style='background:#d97706'>MEDIUM</span></td><td>Ensure SSH MaxAuthTries is set to 4 or less</td><td class='mono'>ssh</td><td class='rem'>Edit /etc/ssh/sshd_config. Set: MaxAuthTries 4<br>Then run: sudo systemctl restart sshd</td></tr>
+<tr><td class='mono'>5.2.13</td><td><span class='pill' style='background:#d97706'>MEDIUM</span></td><td>Ensure SSH MaxStartups is configured</td><td class='mono'>ssh</td><td class='rem'>Edit /etc/ssh/sshd_config. Set: MaxStartups 10:30:60<br>Then run: sudo systemctl restart sshd</td></tr>
+<tr><td class='mono'>5.4.2</td><td><span class='pill' style='background:#d97706'>MEDIUM</span></td><td>Ensure sudo commands use pty</td><td class='mono'>sudoers</td><td class='rem'>Add to /etc/sudoers: Defaults use_pty</td></tr>
+<tr><td class='mono'>2.2.1</td><td><span class='pill' style='background:#d97706'>MEDIUM</span></td><td>Ensure X11 Server is not installed</td><td class='mono'>services</td><td class='rem'>Remove X11: sudo apt purge xserver-xorg-*</td></tr>
+<tr><td class='mono'>1.1.1.1</td><td><span class='pill' style='background:#2563eb'>LOW</span></td><td>Ensure mounting of cramfs filesystems is disabled</td><td class='mono'>filesystem</td><td class='rem'>Run: echo &#x27;install cramfs /bin/true&#x27; | sudo tee -a /etc/modprobe.d/cramfs.conf</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>Generated by TeX v1.0.0 · Zero-Dependency Security Compliance Auditor</footer>
+</div>
+</body>
+</html>

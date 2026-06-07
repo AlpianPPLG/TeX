@@ -1,37 +1,169 @@
-export default function Page() {
-  return (
-    <main className="flex min-h-screen items-center justify-center bg-black px-6 text-neutral-400">
-      <div className="flex w-full max-w-md flex-col items-start gap-8">
-        <svg
-          fill="currentColor"
-          viewBox="0 0 147 70"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-          className="size-10 text-white"
-        >
-          <path d="M56 50.2031V14H70V60.1562C70 65.5928 65.5928 70 60.1562 70C57.5605 70 54.9982 68.9992 53.1562 67.1573L0 14H19.7969L56 50.2031Z" />
-          <path d="M147 56H133V23.9531L100.953 56H133V70H96.6875C85.8144 70 77 61.1856 77 50.3125V14H91V46.1562L123.156 14H91V0H127.312C138.186 0 147 8.81439 147 19.6875V56Z" />
-        </svg>
+import {
+  Activity,
+  AlertTriangle,
+  ListChecks,
+  ShieldCheck,
+  ShieldX,
+} from 'lucide-react'
 
-        <div className="space-y-3">
-          <h1 className="text-balance text-2xl font-semibold tracking-tight text-white">
-            To get started, describe what you want to build.
-          </h1>
-          <p className="text-pretty text-sm leading-relaxed text-neutral-500">
-            This is the default page for a fresh v0 project. Open the prompt and
-            tell v0 what to create, or browse the{' '}
-            <a
-              href="https://v0.app/templates"
-              target="_blank"
-              rel="noreferrer"
-              className="text-neutral-300 underline underline-offset-4 hover:text-white"
-            >
-              Community
-            </a>{' '}
-            for inspiration.
+import {
+  actionableFindings,
+  auditSummary,
+  categoryList,
+  getSpiBand,
+  severityCounts,
+  totals,
+} from '@/lib/audit'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { DashboardHeader } from '@/components/dashboard/dashboard-header'
+import { SpiGauge } from '@/components/dashboard/spi-gauge'
+import { StatCard } from '@/components/dashboard/stat-card'
+import { RadarChart } from '@/components/dashboard/radar-chart'
+import { CategoryScores } from '@/components/dashboard/category-scores'
+import { SeverityDistribution } from '@/components/dashboard/severity-distribution'
+import { FindingsTable } from '@/components/dashboard/findings-table'
+
+export default function Page() {
+  const summary = auditSummary
+  const band = getSpiBand(summary.spi)
+  const counts = severityCounts(summary)
+  const { total, passed, failed } = totals(summary)
+  const actionable = actionableFindings(summary)
+  const criticalHigh = counts.CRITICAL + counts.HIGH
+  const categories = categoryList(summary)
+  const meta = summary.audit_metadata
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <DashboardHeader summary={summary} />
+
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        {/* Title row */}
+        <div className="mb-6 flex flex-col gap-1">
+          <h2 className="text-2xl font-bold tracking-tight">
+            Compliance Dashboard
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            CIS Benchmark for Linux v3 ·{' '}
+            <span className="font-medium text-foreground">{summary.hostname}</span>
+            {meta?.os_name ? ` · ${meta.os_name}` : ''}
+            {meta?.kernel_version ? ` · kernel ${meta.kernel_version}` : ''}
           </p>
         </div>
-      </div>
-    </main>
+
+        {/* Posture + stats */}
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+          <Card className="lg:col-span-1">
+            <CardHeader>
+              <CardTitle>Security Posture Index</CardTitle>
+              <CardDescription>{band.description}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex justify-center pb-8 pt-2">
+              <SpiGauge spi={summary.spi} />
+            </CardContent>
+          </Card>
+
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:col-span-2">
+            <StatCard
+              label="Controls Evaluated"
+              value={total}
+              sublabel="Total CIS checks"
+              icon={ListChecks}
+              accent="text-foreground"
+              iconBg="bg-muted"
+            />
+            <StatCard
+              label="Passed"
+              value={passed}
+              sublabel={`${((passed / (total || 1)) * 100).toFixed(0)}% compliant`}
+              icon={ShieldCheck}
+              accent="text-emerald-500"
+              iconBg="bg-emerald-500/10"
+            />
+            <StatCard
+              label="Failed"
+              value={failed}
+              sublabel="Require remediation"
+              icon={ShieldX}
+              accent="text-red-500"
+              iconBg="bg-red-500/10"
+            />
+            <StatCard
+              label="Critical & High"
+              value={criticalHigh}
+              sublabel="High-impact findings"
+              icon={AlertTriangle}
+              accent="text-orange-500"
+              iconBg="bg-orange-500/10"
+            />
+          </div>
+        </div>
+
+        {/* Radar + categories + severity */}
+        <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
+          <Card>
+            <CardHeader>
+              <CardTitle>Domain Coverage</CardTitle>
+              <CardDescription>Per-module compliance radar</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <RadarChart data={categories} />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Compliance by Category</CardTitle>
+              <CardDescription>Weighted score per domain</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <CategoryScores data={categories} />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Severity Distribution</CardTitle>
+              <CardDescription>
+                {actionable.length} actionable finding
+                {actionable.length === 1 ? '' : 's'}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <SeverityDistribution counts={counts} />
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Findings table */}
+        <Card className="mt-5">
+          <CardHeader className="flex-row items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Activity className="size-4 text-muted-foreground" />
+              <div>
+                <CardTitle>Control Findings</CardTitle>
+                <CardDescription>
+                  Search, filter, and inspect every audited control
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <FindingsTable checks={summary.all_checks} />
+          </CardContent>
+        </Card>
+
+        <footer className="mt-10 border-t border-border pt-6 text-center text-xs text-muted-foreground">
+          Generated by TeX v{meta?.tex_version ?? '1.0.0'} · Zero-Dependency
+          Security Compliance Auditor · Audited by {meta?.audit_user ?? 'tex-auditor'}
+        </footer>
+      </main>
+    </div>
   )
 }

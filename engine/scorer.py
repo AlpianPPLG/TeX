@@ -66,7 +66,23 @@ class Scorer:
             return "MEDIUM"
         
         return severity
-    
+
+    def resolve_base_severity(self, check: Dict, control: Optional[Dict] = None) -> str:
+        """
+        Resolve the *inherent* severity of a control, independent of whether it
+        passed or failed. Used to weight passing controls so they contribute to
+        the overall posture score (a passing CRITICAL control is worth more than
+        a passing LOW control).
+        """
+        candidate = check.get("severity")
+        if candidate in SEVERITY_WEIGHTS and candidate != "PASS":
+            return candidate
+
+        if control and control.get("severity") in SEVERITY_WEIGHTS:
+            return control["severity"]
+
+        return "MEDIUM"
+
     def map_findings(self, raw_audit: Dict) -> List[Dict]:
         """Map raw audit checks to CIS controls with severity classification"""
         findings = []
@@ -90,7 +106,8 @@ class Scorer:
             )
             
             severity = self.classify_severity(check, control)
-            
+            base_severity = self.resolve_base_severity(check, control)
+
             finding = {
                 "cis_id": cis_id,
                 "module": check.get("module", "unknown"),
@@ -99,6 +116,8 @@ class Scorer:
                 "actual_value": check.get("actual_value", ""),
                 "expected_value": check.get("expected_value", ""),
                 "severity": severity,
+                "base_severity": base_severity,
+                "weight": SEVERITY_WEIGHTS.get(base_severity, 0.0),
                 "remediation": check.get("remediation", control.get("remediation", "") if control else ""),
                 "nist_800_53": control.get("nist_800_53", []) if control else [],
             }
@@ -119,42 +138,56 @@ class Scorer:
                 category_scores[module] = 100.0
                 continue
             
-            total_weight = sum(SEVERITY_WEIGHTS.get(f["severity"], 0) for f in module_findings)
-            failed_weight = sum(
-                SEVERITY_WEIGHTS.get(f["severity"], 0)
-                for f in module_findings
-                if f["status"] == "FAIL"
-            )
-            
-            if total_weight == 0:
-                score = 100.0
-            else:
-                score = max(0, min(100, 100 * (1 - (failed_weight / total_weight))))
-            
-            category_scores[module] = round(score, 1)
+            category_scores[module] = self._weighted_score(module_findings)
         
         return category_scores
-    
+
+    @staticmethod
+    def _finding_weight(finding: Dict) -> float:
+        """Inherent weight of a control, regardless of pass/fail outcome."""
+        if "weight" in finding:
+            return float(finding["weight"])
+        # Backwards-compatible fallback for findings without a base weight.
+        return SEVERITY_WEIGHTS.get(finding.get("base_severity", finding.get("severity", "MEDIUM")), 0.0)
+
+    @classmethod
+    def _weighted_score(cls, findings: List[Dict]) -> float:
+        """
+        Compute a 0-100 posture score for a set of findings.
+
+        score = 100 * (weight of PASSED controls / weight of all scored controls)
+
+        MANUAL controls are excluded from both numerator and denominator since
+        their outcome is undetermined. A set with no scorable controls yields
+        100 (nothing to fail).
+        """
+        scorable = [f for f in findings if f.get("status") in ("PASS", "FAIL")]
+        total_weight = sum(cls._finding_weight(f) for f in scorable)
+
+        if total_weight == 0:
+            return 100.0
+
+        passed_weight = sum(
+            cls._finding_weight(f) for f in scorable if f.get("status") == "PASS"
+        )
+
+        score = 100 * (passed_weight / total_weight)
+        return round(max(0.0, min(100.0, score)), 1)
+
     def calculate_spi(self, findings: List[Dict]) -> float:
         """
-        Calculate Security Posture Index (0-100)
-        SPI = 100 * (1 - (sum(weight of failed controls) / sum(weight of all controls)))
+        Calculate Security Posture Index (0-100).
+
+        SPI = 100 * (sum(weight of passed controls) / sum(weight of all controls))
+
+        Passing a high-severity control therefore contributes more to the score
+        than passing a low-severity one, and a fleet of passing controls is
+        rewarded rather than ignored.
         """
         if not findings:
             return 100.0
-        
-        total_weight = sum(SEVERITY_WEIGHTS.get(f["severity"], 0) for f in findings)
-        failed_weight = sum(
-            SEVERITY_WEIGHTS.get(f["severity"], 0)
-            for f in findings
-            if f["status"] == "FAIL"
-        )
-        
-        if total_weight == 0:
-            return 100.0
-        
-        spi = 100 * (1 - (failed_weight / total_weight))
-        return max(0, min(100, round(spi, 1)))
+
+        return self._weighted_score(findings)
     
     def group_findings_by_severity(self, findings: List[Dict]) -> Dict[str, List[Dict]]:
         """Group findings by severity level"""
